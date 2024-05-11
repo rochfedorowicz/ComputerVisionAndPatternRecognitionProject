@@ -1,0 +1,11 @@
+The AAindex is a valuable resource for researchers, providing numerical indices that represent various physicochemical and biochemical properties of amino acids and pairs of amino acids.
+Here’s how you can access and download it:
+
+Online Access:
+You can explore the AAindex through the DBGET/LinkDB system at GenomeNet. Visit the AAindex website to search for specific indices or properties1.
+Additionally, you can find information on amino acid indices, mutation matrices, and pair-wise contact potentials within the database.
+
+Download Options:
+Anonymous FTP: You can download the AAindex data via anonymous FTP from the GenomeNet server. The FTP link is: ftp://ftp.genome.jp/pub/db/community/aaindex/23.
+
+Alternatively, you can use HTTPS to download the AAindex data.
