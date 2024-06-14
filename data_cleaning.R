@@ -100,8 +100,8 @@ process_and_save_data <- function(file_path, output_path) {
 }
 
 # Specify paths
-input_file_path <- "W:/repos/WKiRO_proj/Project/waltzdb_export.xlsx"
-output_file_path <- "W:/repos/WKiRO_proj/Project/cleaned_waltzdb_export.xlsx"
+input_file_path <- "waltzdb_export.xlsx"
+output_file_path <- "cleaned_waltzdb_export.xlsx"
 
 # Execute the process
 process_and_save_data(input_file_path, output_file_path)

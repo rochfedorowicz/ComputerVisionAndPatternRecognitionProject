@@ -4,9 +4,10 @@ library(e1071)
 library(caret)
 library(randomForest)
 library(janitor)
+library(dplyr)
 
 # Load the data
-file_path <- "W:/repos/WKiRO_proj/Project/cleaned_waltzdb_export.xlsx"
+file_path <- "encoded_waltz.xlsx"
 data <- read_excel(file_path) %>% clean_names()
 
 # Preprocessing Data
@@ -27,28 +28,28 @@ training_data <- data[training_index, ]
 testing_data <- data[-training_index, ]
 
 # Setup training control for initial models (to save predictions for stacking)
-control_base <- trainControl(method = "cv", number = 10, savePredictions = "final", classProbs = TRUE)
+control <- trainControl(method = "cv", number = 10, savePredictions = "final", classProbs = TRUE)
 
 # Train the base models
 model_rf <- train(classification ~ ., data = training_data, method = "rf", trControl = control_base, tuneLength = 3)
 model_svm <- train(classification ~ ., data = training_data, method = "svmRadial", trControl = control_base, tuneLength = 3)
+model_glm <- train(classification ~ ., data = training_data, method = "glm", trControl = control_base, tuneLength = 3)
 
 # Predict on test data using base models
 predictions_rf <- predict(model_rf, testing_data)
 predictions_svm <- predict(model_svm, testing_data)
+predictions_glm <- predict(model_glm, testing_data)
 
 # Evaluate the base models
 conf_matrix_rf <- confusionMatrix(predictions_rf, testing_data$classification)
 conf_matrix_svm <- confusionMatrix(predictions_svm, testing_data$classification)
-
-# Setup training control for meta-model (using CV predictions)
-control_meta <- trainControl(method = "cv", number = 10, savePredictions = "final", classProbs = TRUE)
+conf_matrix_glm <- confusionMatrix(predictions_glm, testing_data$classification)
 
 # Combine predictions and actual values into a new training set for the meta-model
 training_predictions <- data.frame(
   rf_prob_pos = model_rf$pred$amyloid,
-  rf_prob_neg = model_rf$pred$amyloid,
-  svm_prob_pos = model_svm$pred$non.amyloid,
+  rf_prob_neg = model_rf$pred$non.amyloid,
+  svm_prob_pos = model_svm$pred$amyloid,
   svm_prob_neg = model_svm$pred$non.amyloid,
   actual = training_data$classification
 )
@@ -56,8 +57,8 @@ training_predictions <- data.frame(
 # Train the meta-model
 meta_model <- train(actual ~ ., data = training_predictions, method = "glm",
                     family = "binomial",  # Specify the family for logistic regression
-                    trControl = control_meta,
-                    weights = ifelse(training_predictions$actual == "amyloid", 1.8, 1.02),
+                    trControl = control,
+                    weights = ifelse(training_predictions$actual == "amyloid", 1.8, 1.03),
                     metric = "Accuracy",
                     maximize = TRUE)
 
@@ -84,5 +85,7 @@ cat("Confusion Matrix for Random Forest:\n")
 print(conf_matrix_rf)
 cat("\nConfusion Matrix for SVM:\n")
 print(conf_matrix_svm)
+cat("\nConfusion Matrix for Linear Models:\n")
+print(conf_matrix_glm)
 cat("\nConfusion Matrix for Meta-Classifier (Logistic Regression):\n")
 print(final_results)

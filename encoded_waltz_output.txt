@@ -1,0 +1,123 @@
+> # Print the confusion matrices
+> cat("Confusion Matrix for Random Forest:\n")
+Confusion Matrix for Random Forest:
+> print(conf_matrix_rf)
+Confusion Matrix and Statistics
+
+             Reference
+Prediction    amyloid non.amyloid
+  amyloid          71          27
+  non.amyloid      32         153
+                                          
+               Accuracy : 0.7915          
+                 95% CI : (0.7395, 0.8373)
+    No Information Rate : 0.636           
+    P-Value [Acc > NIR] : 1.067e-08       
+                                          
+                  Kappa : 0.545           
+                                          
+ Mcnemar's Test P-Value : 0.6025          
+                                          
+            Sensitivity : 0.6893          
+            Specificity : 0.8500          
+         Pos Pred Value : 0.7245          
+         Neg Pred Value : 0.8270          
+             Prevalence : 0.3640          
+         Detection Rate : 0.2509          
+   Detection Prevalence : 0.3463          
+      Balanced Accuracy : 0.7697          
+                                          
+       'Positive' Class : amyloid         
+                                          
+> cat("\nConfusion Matrix for SVM:\n")
+
+Confusion Matrix for SVM:
+> print(conf_matrix_svm)
+Confusion Matrix and Statistics
+
+             Reference
+Prediction    amyloid non.amyloid
+  amyloid          79          18
+  non.amyloid      24         162
+                                          
+               Accuracy : 0.8516          
+                 95% CI : (0.8047, 0.8909)
+    No Information Rate : 0.636           
+    P-Value [Acc > NIR] : 6.242e-16       
+                                          
+                  Kappa : 0.6754          
+                                          
+ Mcnemar's Test P-Value : 0.4404          
+                                          
+            Sensitivity : 0.7670          
+            Specificity : 0.9000          
+         Pos Pred Value : 0.8144          
+         Neg Pred Value : 0.8710          
+             Prevalence : 0.3640          
+         Detection Rate : 0.2792          
+   Detection Prevalence : 0.3428          
+      Balanced Accuracy : 0.8335          
+                                          
+       'Positive' Class : amyloid         
+                                          
+> cat("\nConfusion Matrix for Linear Models:\n")
+
+Confusion Matrix for Linear Models:
+> print(conf_matrix_glm)
+Confusion Matrix and Statistics
+
+             Reference
+Prediction    amyloid non.amyloid
+  amyloid          77          26
+  non.amyloid      26         154
+                                          
+               Accuracy : 0.8163          
+                 95% CI : (0.7661, 0.8596)
+    No Information Rate : 0.636           
+    P-Value [Acc > NIR] : 2.553e-11       
+                                          
+                  Kappa : 0.6031          
+                                          
+ Mcnemar's Test P-Value : 1               
+                                          
+            Sensitivity : 0.7476          
+            Specificity : 0.8556          
+         Pos Pred Value : 0.7476          
+         Neg Pred Value : 0.8556          
+             Prevalence : 0.3640          
+         Detection Rate : 0.2721          
+   Detection Prevalence : 0.3640          
+      Balanced Accuracy : 0.8016          
+                                          
+       'Positive' Class : amyloid         
+                                          
+> cat("\nConfusion Matrix for Meta-Classifier (Logistic Regression):\n")
+
+Confusion Matrix for Meta-Classifier (Logistic Regression):
+> print(final_results)
+Confusion Matrix and Statistics
+
+             Reference
+Prediction    amyloid non.amyloid
+  amyloid          87          34
+  non.amyloid      16         146
+                                          
+               Accuracy : 0.8233          
+                 95% CI : (0.7738, 0.8659)
+    No Information Rate : 0.636           
+    P-Value [Acc > NIR] : 3.718e-12       
+                                          
+                  Kappa : 0.6321          
+                                          
+ Mcnemar's Test P-Value : 0.01621         
+                                          
+            Sensitivity : 0.8447          
+            Specificity : 0.8111          
+         Pos Pred Value : 0.7190          
+         Neg Pred Value : 0.9012          
+             Prevalence : 0.3640          
+         Detection Rate : 0.3074          
+   Detection Prevalence : 0.4276          
+      Balanced Accuracy : 0.8279          
+                                          
+       'Positive' Class : amyloid 
